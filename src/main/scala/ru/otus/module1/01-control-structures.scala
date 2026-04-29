@@ -3,13 +3,13 @@ package ru.otus.module1
 object controlStructures {
 
 
-  println("control structures")
   /**
    * Управляющие конструкции
    *   if / else
    *   while / do while
    *   for
    */
+
 
 
   /**
@@ -22,19 +22,14 @@ object controlStructures {
    */
 
 
-  var cond: Boolean = true
 
   //1. Напишите выражение, которое в зависимости от значения выражения cond
   // будет возвращать "yes" или "no",
   // присвойте его в значение х1
 
-  val x1 = if cond then
-    "yes"
-  else "no"
+  val cond: Boolean = true
 
-
-
-
+  val x1: String = if cond then "yes" else "no"
 
 
 
@@ -43,15 +38,14 @@ object controlStructures {
   // будет печатать "yes" или "no" в консоль,
   // присвойте его в значение х2
 
-  val x2: Any = if cond then "yes" else println("no")
-
-
+  val x2: Unit = if cond then println("yes") else println("no")
 
 
   //3. Напишите выражение, которое если значение переменной cond будет true напечатает в консоль "yes", а если
   // false то вернет строку "no",
   // присвойте его в значение х3
 
+  val x3: Any = if cond then println("yes") else "no"
 
 
 
@@ -61,34 +55,25 @@ object controlStructures {
    * Отличаются моментом, когда происходит проверка условия ДО или ПОСЛЕ выполнения тела цикла
    */
 
-   var cond2 = false
-
-   val x4: Unit = while
-     println("hi")
-     cond2
-   do ()
-
-
-
+    val x4: Unit = while cond do
+      println("Hi")
+      println("Hi")
+      println("Hi")
+      
+    val x5: Unit = while
+        println("Hi")
+        cond
+      do ()
+  
 
   /**
    * Цикл for позволяет итерироваться по коллекциям,
    * имеет своеобразный синтаксис с обратной стрелочкой
    */
-
+  
    val arr = Array(1, 2, 3)
-
-   for el <- arr do println(el)
-
-   val block =
-     println("Statement 1")
-     println("Statement 2")
-     println("Statement 3")
-     "Statement 4"
-   println(block)
+  
+   val x6: Unit = for i <- 1 to 10 do
+     println(i)
 
 }
-
-@main def run() =
-  println("Hello world")
-  controlStructures.x4

@@ -2,67 +2,60 @@ package ru.otus.module1
 
 object functions {
 
-
-  /**
-   * Функции
-   */
-
-  val sum2: (Int, Int) => Int = (a, b) => a + b
-
-  // SAM
-  trait Printer {
-    def print(s: String): Unit
-  }
-
-  val printer: Printer = (s: String) => println(s)
-
-  val sum3: (Int, Int) => Int = sum
-
-  sum3(3, 5) // 8
-
-
-
   /**
    * Реализовать метод sum, которая будет суммировать 2 целых числа и выдавать результат
    */
 
+  // SAM
+
+  trait Printer {
+    def print(s: String): Unit
+  }
+
+  val p: Printer = s => println(s)
+  p.print("hello")
+
   def sum(x: Int, y: Int): Int = x + y
 
+
   sum(2, 3) // 5
-  sum2(2, 3) // 5
 
+  val sum2: (Int, Int) => Int = (x, y) => x + y
 
+  sum2(3, 2) // 5
+  sum(3, 2) // 5
 
-  //Currying
+  val sum3: Function2[Int, Int, Int] = sum2
 
-  val sumCurried = sum.curried
+  sum3(3, 2) // 5
 
-  sum2(3, 5) // 8
+  val sum4 = sum
 
-  val p1: Int => Int = sumCurried(3)
+  sum4(3, 2) // 3
 
-  p1(5) // 8
+  // Currying
+  val sumCurried: Int => Int => Int = sum2.curried
 
+  val r1 = sumCurried(2)(3) // 5
+  val r2: Int => Int = sumCurried(2)
+
+  r2(2) //4
+  r2(5) // 7
 
   // Partial function
 
-  val divide: PartialFunction[(Int, Int), Int] = new PartialFunction[(Int, Int), Int] {
+  val divide: PartialFunction[(Int, Int), Int] =
+    case x if x._2 != 0 => x._1 / x._2
+
+  val divide2: PartialFunction[(Int, Int), Int] = new PartialFunction[(Int, Int), Int] {
     override def isDefinedAt(x: (Int, Int)): Boolean = x._2 != 0
 
     override def apply(v1: (Int, Int)): Int = v1._1 / v1._2
   }
 
-  divide.isDefinedAt(10, 0) // false
-  divide.isDefinedAt(10, 2) // true
-  divide(10, 2)
+  val r3 = if divide.isDefinedAt(10, 2)  then divide(10, 2) else 0
 
-  val ll = List((4, 2), (5, 0), (6, 3))
-
-  val r = ll.collect(divide) // List(2, 2)
-
-
-  // SAM Single Abstract Method
-
+  val r4 = List((10, 2), (5, 0), (4, 1)).collect(divide) // List(5, 4)
 
   /**
    *  Задание 1. Написать ф-цию метод isEven, которая будет вычислять является ли число четным
@@ -90,6 +83,3 @@ object functions {
 
 
 }
-
-@main def run2() =
-  functions.sumCurried(1)
