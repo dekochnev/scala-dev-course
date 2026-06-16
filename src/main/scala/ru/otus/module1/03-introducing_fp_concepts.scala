@@ -139,6 +139,8 @@ object variance {
 
 
 
+
+
 /**
  *  Реализуем тип Option
  */
@@ -197,94 +199,7 @@ object variance {
 
  }
 
-
-object optionImpl {
-
-  /**
-   *
-   * Структура данных Option, которая указывает на присутствие либо отсутствие результата
-   */
-
-  sealed trait Option[+T] {
-    // Каждый подтип может сказать пуст ли он
-    def isEmpty: Boolean
-
-    // Получить значение; на None вызовет ошибку
-    def get: T
-
-    /**
-     * getOrElse: если пусто — верни дефолт, иначе верни значение.
-     * (default: => B -> тут передача "по имени")
-     */
-    def getOrElse[B >: T](default: => B): B =
-      if (isEmpty) default else get
-
-    /**
-     * map: если есть значение — примени функцию, иначе оставь None
-     */
-    def map[B](f: T => B): Option[B] =
-      if (isEmpty) None else Some(f(get))
-
-    /**
-     * flatMap: если есть значение — примени функцию, которая сама может вернуть Option
-     */
-    def flatMap[B](f: T => Option[B]): Option[B] =
-      if (isEmpty) None else f(get)
-
-    /**
-     * Метод printIfAny: печатать значение, если оно есть
-     */
-    def printIfAny(): Unit =
-      map(v => println(v))  // для None map ничего не сделает, для Some вызовет println
-
-    /**
-     * Метод zip: создавать Option от пары значений из 2-х Option (если они есть, иначе None)
-     */
-    def zip[B](that: Option[B]): Option[(T, B)] =
-      if (this.isEmpty || that.isEmpty) None
-      else Some((this.get, that.get))
-
-    /**
-     * Метод filter: будет возвращать Some ("непустой Option"), если есть значение и оно проходит предикат,
-     * иначе None
-     */
-    def filter(p: T => Boolean): Option[T] =
-      if (isEmpty) None
-      else if p(get) then Some(get) else None
-  }
-
-  /**
-   * Реализация для Some: у нас есть значение
-   */
-  case class Some[T](v: T) extends Option[T] {
-    override def isEmpty: Boolean = false
-
-    override def get: T = v
-  }
-
-  /**
-   * Реализация для None: значения нет
-   */
-  case object None extends Option[Nothing] {
-    override def isEmpty: Boolean = true
-
-    // Вызов get на None - это ошибка. Не вызывать get без isEmpty.
-    override def get: Nothing = throw new NoSuchElementException("None.get")
-  }
-
-  /**
-   * Объект-фабрика (чтобы писать Option(x) вместо Some(x))
-   */
-  object Option {
-    def apply[T](v: T): Option[T] = Some(v)
-
-    def empty[T]: Option[T] = None
-  }
-
-}
-
-
-object list {
+ object list {
    /**
     *
     * Реализовать одно связанный иммутабельный список List
