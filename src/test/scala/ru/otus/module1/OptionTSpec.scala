@@ -7,7 +7,7 @@ import ru.otus.module1.OptionT.*
 
 class OptionTSpec extends AnyFlatSpec with Matchers {
 
-  "OptionT.Some" should "correctly handle value presence" in {
+  "Some" should "correctly handle value presence" in {
     val someValue = OptionT(42)
     someValue.isEmpty should be(false)
     someValue.get should be(42)
@@ -15,24 +15,24 @@ class OptionTSpec extends AnyFlatSpec with Matchers {
 
   it should "correctly apply map function" in {
     val someValue = OptionT(42)
-    someValue.map(_ * 2) should be(OptionT.Some(84))
+    someValue.map(_ * 2) should be(Some(84))
   }
 
   it should "correctly apply flatMap function" in {
     val someValue = OptionT(42)
-    someValue.flatMap(x => OptionT.Some(x * 2)) should be(OptionT.Some(84))
+    someValue.flatMap(x => Some(x * 2)) should be(Some(84))
   }
 
   it should "correctly filter values" in {
     val someValue = OptionT(42)
-    someValue.filter(_ > 40) should be(OptionT.Some(42))
+    someValue.filter(_ > 40) should be(Some(42))
     someValue.filter(_ < 40) should be(OptionT.None)
   }
 
   it should "correctly zip with another Some" in {
     val some1 = OptionT(42)
-    val some2 = OptionT.Some("test")
-    some1.zip(some2) should be(OptionT.Some((42, "test")))
+    val some2 = Some("test")
+    some1.zip(some2) should be(Some((42, "test")))
   }
 
   "OptionT.None" should "correctly handle absence of value" in {
@@ -50,11 +50,11 @@ class OptionTSpec extends AnyFlatSpec with Matchers {
   }
 
   "None" should "return None on flatMap" in {
-    OptionT.empty[Int].flatMap(x => OptionT.Some(x * 2)) should be(OptionT.empty[Int])
+    OptionT.empty[Int].flatMap(x => Some(x * 2)) should be(OptionT.empty[Int])
   }
 
   "Some" should "apply flatMap function" in {
-    OptionT(42).flatMap(x => OptionT.Some(x * 2)) should be(OptionT.Some(84))
+    OptionT(42).flatMap(x => Some(x * 2)) should be(Some(84))
   }
 
   "flatMap with None result" should "return None" in {
@@ -62,11 +62,11 @@ class OptionTSpec extends AnyFlatSpec with Matchers {
   }
 
   "flatMap with Some result" should "apply function" in {
-    OptionT(42).flatMap(x => OptionT.Some(x * 2)) should be(OptionT.Some(84))
+    OptionT(42).flatMap(x => Some(x * 2)) should be(Some(84))
   }
 
   it should "return None on zip with None" in {
-    OptionT.None.zip(OptionT.Some(42)) should be(OptionT.None)
+    OptionT.None.zip(Some(42)) should be(OptionT.None)
     OptionT(42).zip(OptionT.None) should be(OptionT.None)
   }
 
@@ -86,7 +86,7 @@ class OptionTSpec extends AnyFlatSpec with Matchers {
     val scalaSome: Some[String] = Some("test")
     val converted: OptionT[String] = scalaSome
 
-    converted shouldEqual OptionT.Some("test")
+    converted shouldEqual Some("test")
     converted.get === "test"
     converted.isEmpty === false
   }
@@ -95,7 +95,7 @@ class OptionTSpec extends AnyFlatSpec with Matchers {
     val scalaSome: Some[Int] = Some(42)
     val converted: OptionT[Int] = scalaSome
 
-    converted === OptionT.Some(42)
+    converted === Some(42)
     converted.get shouldEqual 42
     converted.isEmpty === false
   }

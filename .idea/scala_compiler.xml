@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <option name="separateProdTestSources" value="true" />
-    <profile name="sbt 1" modules="scala-dev-course_1759,scala-dev-course_1759.main,scala-dev-course_1759.test,scala-dev-mooc-2026-04" />
-    <profile name="sbt 2" modules="scala-dev-mooc-2026-04.main,scala-dev-mooc-2026-04.test">
-      <option name="deprecationWarnings" value="true" />
-      <parameters>
-        <parameter value="-new-syntax" />
-        <parameter value="-explain" />
-      </parameters>
-    </profile>
+    <profile name="sbt 1" modules="scala-dev-course_1759,scala-dev-course_1759.main,scala-dev-course_1759.test,scala-dev-mooc-2026-04,scala-dev-mooc-2026-04.main,scala-dev-mooc-2026-04.test" />
   </component>
 </project>
