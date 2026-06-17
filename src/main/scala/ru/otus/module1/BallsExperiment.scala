@@ -1,7 +1,5 @@
 package ru.otus.module1
 
-import ru.otus.module1.BallBox.*
-
 import scala.util.Random
 
 object BallsExperiment {
