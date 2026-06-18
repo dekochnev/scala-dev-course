@@ -103,9 +103,12 @@ object LinkedList {
   /**
    * Фабрика для создания всего списка сразу из произвольного числа элементов (из varargs)
    */
-  def apply[T](s: T*): LinkedList[T] =
-    if s.isEmpty then Nil
-    else Cons(s.head, apply(s.tail: _*)) // здесь методы head/tail из Seq[T]; конструкция : _* превратит Seq обратно в varargs
+  def apply[T](as: T*): LinkedList[T] =
+    as.foldLeft(Nil: LinkedList[T])((acc, x) => Cons(x, acc)).reverse
+
+//  def apply[T](s: T*): LinkedList[T] =
+//    if s.isEmpty then Nil
+//    else Cons(s.head, apply(s.tail: _*)) // здесь методы head/tail из Seq[T]; конструкция : _* превратит Seq обратно в varargs
 
   def empty[T]: LinkedList[T] = Nil
 
