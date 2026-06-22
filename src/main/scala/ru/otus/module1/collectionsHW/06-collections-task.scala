@@ -108,8 +108,8 @@ object collectionsTask {
   def filterAllLeftDealerAutoWithoutRight(dealerOne: Iterable[Auto], dealerTwo: Iterable[Auto]): Iterable[Auto] = {
     val setOne = dealerOne.map(AutoIgnoreCase.apply).toSet
     val setTwo = dealerTwo.map(AutoIgnoreCase.apply).toSet
-    // по условию задачи: нужны элементы первого множества ("обслуживающихся в первом дилерском центре"),
-    // которых нет во втором ("и не обслуживающимся во втором") - это и есть определение разности множеств (-- или diff)
+    // по условию задачи: нужны элементы первого множества ("обслуживающихся в первом дилерском центре"), которых
+    // нет во втором ("и не обслуживающимся во втором") - это и есть определение разности множеств (-- или diff, или &~)
     (setOne -- setTwo).map(_.auto)
   }
 }
