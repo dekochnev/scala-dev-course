@@ -1,6 +1,5 @@
 package ru.otus.module1.collectionsHW
 
-
 object collectionsTask {
   def isASCIIString(str: String): Boolean = str.matches("[A-Za-z]+")
 
@@ -60,8 +59,6 @@ object collectionsTask {
     }.mkString
     */
   }
-
-
 
   /**
    *
