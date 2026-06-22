@@ -1,6 +1,5 @@
 package ru.otus.module1.collectionsHW
 
-import scala.collection.mutable
 
 object collectionsTask {
   def isASCIIString(str: String): Boolean = str.matches("[A-Za-z]+")
