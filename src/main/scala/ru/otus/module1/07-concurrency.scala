@@ -178,12 +178,12 @@ object concurrency {
     val f1: Future[Int] = Future.successful(10)
     val f2: Future[Int] = Future.failed[Int](new Throwable("Ooops"))
     val f3: Future[Int] = Future.fromTry(Try(10))
-    val f4: Future[Int] = Future(10)(ec1)
+    val f4: Future[Int] = Future(10)(ec)
 
 
     // Execution context
-    lazy val ec1 = ExecutionContext.fromExecutor(executors.pool1)
-    lazy val ec2 = ExecutionContext.fromExecutor(executors.pool2)
+    lazy val ec = ExecutionContext.fromExecutor(executors.pool1)
+    lazy val ec1 = ExecutionContext.fromExecutor(executors.pool2)
     lazy val ec3 = ExecutionContext.fromExecutor(executors.pool3)
     lazy val ec4 = ExecutionContext.fromExecutor(executors.pool4)
 
@@ -198,7 +198,7 @@ object concurrency {
 //          }(ec)
 //        }(ec)
 //      }(ec)
-      given ExecutionContext = ec2
+      given ExecutionContext = ec1
 
       for{
         s <- start
@@ -212,13 +212,13 @@ object concurrency {
       Thread.sleep(1000)
       println("Location 1")
       10
-    }(ec1)
+    }(ec)
 
     def getRatesLocation2: Future[Int] = Future {
       Thread.sleep(2000)
       println("Location 2")
       20
-    }(ec1)
+    }(ec)
 
     def rates: Future[(Int, Int)] = {
       val r1 = getRatesLocation1
@@ -238,8 +238,8 @@ object concurrency {
       v
     }
 
-    val f01 = Future(action(10))(ec1)
-    val f02 = Future(action(20))(ec2)
+    val f01 = Future(action(10))(ec)
+    val f02 = Future(action(20))(ec1)
 
     val f03 = f01.flatMap{ v1 =>
       action(50)
