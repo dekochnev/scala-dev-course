@@ -4,8 +4,6 @@ import ru.otus.module1.futures.HomeworksUtils.task
 
 import scala.concurrent.{ExecutionContext, Future}
 
-implicit val ec: ExecutionContext = ExecutionContext.Implicits.global
-
 object task_futures_sequence {
 
   /**
@@ -14,7 +12,7 @@ object task_futures_sequence {
    * возвращающую все успешные и не успешные результаты.
    * Возвращаемое тип функции - кортеж из двух списков,
    * в левом хранятся результаты успешных выполнений,
-   *    * в правовой результаты неуспешных выполнений.
+   * в правовой результаты неуспешных выполнений.
    * Не допускается использование методов объекта Await и мутабельных переменных var
    */
   private type FutureFSResult[A] = Future[(List[A], List[Throwable])]
