@@ -12,7 +12,7 @@ object App {
     println(s"Hello world from: " +
       s"${Thread.currentThread().getName}")
 
-    given ExecutionContext = future.ec
+    given ExecutionContext = future.ec1
 
     val f1 = ToyFuture {
       Thread.sleep(1000)
