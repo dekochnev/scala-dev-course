@@ -12,7 +12,7 @@ object higher_kinded_types{
     a.flatMap{ a => b.map((a, _))}
 
 
-
+  // tupleF должна превратить два любых контейнера с типом F[A] и F[B] в один контейнер с типом F[(A, B)].
   def tupleF[F[_], A, B](fa: F[A], fb: F[B]): F[(A, B)] = ???
   
   trait Bindable[F[_], A] {
