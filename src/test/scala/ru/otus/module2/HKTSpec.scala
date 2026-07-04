@@ -2,7 +2,7 @@ package ru.otus.module2
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ru.otus.module2.higher_kinded_types.*  //{tupleF, FBindable, given}
+import ru.otus.module2.higher_kinded_types.{tupleF, given}
 
 class HKTSpec extends AnyFlatSpec with Matchers {
 
