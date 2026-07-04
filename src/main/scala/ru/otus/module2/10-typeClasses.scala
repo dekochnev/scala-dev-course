@@ -151,14 +151,15 @@ object homework06 {
     println("String.toJson -> " + "test_string".toJson)   // JsString(test_string)
     println("Int.toJson -> " + 10.toJson)           // JsNumber(10.0)
 
-    println("toJson(String) -> " + toJson("hello")) // JsString("hello")
+    println("\ntoJson(String) -> " + toJson("hello")) // JsString("hello")
     println("toJson(Int) -> " + toJson(30))         // JsNumber(30.0)
 
     // Option[T]
-    println("Option(Int).toJson -> " + Option(10).toJson)
+    val someEmpty: Option[Int] = None
+    println("\nOption(Int).toJson -> " + Option(10).toJson)
     println("Option(String).toJson -> " + Option("test_option").toJson)
-
-    println("None     -> " + toJson(None: Option[Int])) // JsNull
+    println("\nOption(None).toJson -> " + someEmpty.toJson)   // JsNull
+    println("toJson(None) -> " + toJson(someEmpty))         // JsNull
 
     // Пример с составным типом (объект через Map)
     val user = Map(
