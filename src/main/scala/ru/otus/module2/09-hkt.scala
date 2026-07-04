@@ -12,8 +12,8 @@ object higher_kinded_types{
     a.flatMap{ a => b.map((a, _))}
 
 
-//  def tupleF[F[_], A, B](fa: F[A], fb: F[B]): F[(A, B)] = ???
 
+  // def tupleF[F[_], A, B](fa: F[A], fb: F[B]): F[(A, B)] = ???
 
   trait Bindable[F[_], A] {
     def map[B](f: A => B): F[B]
@@ -30,24 +30,23 @@ object higher_kinded_types{
     override def flatMap[B](f: A => Option[B]): Option[B] = opt.flatMap(f)
   }
 
-  def listBindable[A](list: List[A]): Bindable[List, A] = new Bindable[List, A] {
-    override def map[B](f: A => B): List[B] = list.map(f)
+  def listBindable[A](opt: List[A]): Bindable[List, A] = new Bindable[List, A] {
+    override def map[B](f: A => B): List[B] = opt.map(f)
 
-    override def flatMap[B](f: A => List[B]): List[B] = list.flatMap(f)
+    override def flatMap[B](f: A => List[B]): List[B] = opt.flatMap(f)
   }
+
+
 
   val optA: Option[Int] = Some(1)
   val optB: Option[Int] = Some(2)
 
-//  val list1 = List(1, 2, 3)
-//  val list2 = List(4, 5, 6)
+  val list1 = List(1, 2, 3)
+  val list2 = List(4, 5, 6)
 
-    val list1 = List(1, 2)
-    val list2 = List("A", "B")
+  val r1 = println(tupleBindable(optBindable(optA), optBindable(optB)))
+  val r2 = println(tupleBindable(listBindable(list1), listBindable(list2)))
 
-
-  //  val r1 = println(tupleBindable(optBindable(optA), optBindable(optB)))
-//  val r2 = println(tupleBindable(listBindable(list1), listBindable(list2)))
 
   // абстракция над HKT F[_] = "для любого F я умею делать map и flatMap"
   trait FBindable[F[_]] {
@@ -72,9 +71,4 @@ object higher_kinded_types{
 
     override def map[A, B](fa: List[A])(f: A => B): List[B] = fa.map(f)
   }
-
-  @main def test1: Unit = {
-    println(tupleBindable(listBindable(list1), listBindable(list2)))
-  }
 }
-
