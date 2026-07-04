@@ -19,7 +19,7 @@ object higher_kinded_types{
     def map[B](f: A => B): F[B]
     def flatMap[B](f: A => F[B]): F[B]
   }
-
+  
   def tupleBindable[F[_], A, B](fa: Bindable[F, A], fb: Bindable[F, B]): F[(A, B)] =
     fa.flatMap{ a => fb.map((a, _))}
 
@@ -43,7 +43,7 @@ object higher_kinded_types{
 
   val list1 = List(1, 2, 3)
   val list2 = List(4, 5, 6)
-
+  
   val r1 = println(tupleBindable(optBindable(optA), optBindable(optB)))
   val r2 = println(tupleBindable(listBindable(list1), listBindable(list2)))
 

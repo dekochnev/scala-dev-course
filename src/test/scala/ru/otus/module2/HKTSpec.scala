@@ -11,7 +11,10 @@ class HKTSpec extends AnyFlatSpec with Matchers {
   val optNone: Option[Int] = None
   val listA = List(1, 2)
   val listB = List("A", "B")
-
+  val listExpected = List(
+    (1, "A"), (1, "B"),
+    (2, "A"), (2, "B")
+  )
   "tupleF with Option" should "combine two Some values into a Some pair" in {
     tupleF(optA, optB) shouldBe Some((10, 20))
   }
@@ -29,11 +32,8 @@ class HKTSpec extends AnyFlatSpec with Matchers {
   }
 
   "tupleF with List" should "produce all pairs" in {
-    val expected = List(
-      (1, "A"), (1, "B"),
-      (2, "A"), (2, "B")
-    )
-    tupleF(listA, listB) shouldBe expected
+    
+    tupleF(listA, listB) shouldBe listExpected
   }
 
   it should "return an empty list if the first list is empty" in {
